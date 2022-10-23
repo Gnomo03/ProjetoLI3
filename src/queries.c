@@ -12,6 +12,19 @@ struct tm localt (){
     return tm;
 }
 
+int getAge (struct tm hoje, struct tm birth){
+    int res = hoje.tm_year - birth.tm_year;
+    if (hoje.tm_mon == birth.tm_mon){
+        if (hoje.tm_mday < birth.tm_mday){
+            res = res - 1;
+        }
+    }
+    else if (hoje.tm_mon < birth.tm_mon){
+        res = res - 1;
+    }
+    return res;
+}
+
 //User Functions
 User *getUser(User *users, char *username){
     User *result = users;
@@ -78,7 +91,7 @@ struct userQ1 *q1(char *username, User *users, Ride *rides, Driver *drivers){
             result->gender = u->gender;
             // age
             struct tm today = localt(); 
-            result->age = today.tm_year+1900 - u->birth.tm_year;
+            result->age = getAge(today, u->birth);
 
             Ride *r = rides;
             int rideCount = 0;
@@ -108,7 +121,7 @@ struct userQ1 *q1(char *username, User *users, Ride *rides, Driver *drivers){
             result->gender = d->gender;
             // age
             struct tm today = localt(); 
-            result->age = today.tm_year+1900 - d->birth.tm_year;
+            result->age = getAge(today, d->birth);
 
             Ride *r = rides;
             int rideCount = 0;
