@@ -17,6 +17,7 @@ struct userQ1{
     float total_cost;
 };
 
+// All queries
 struct userQ1 *q1(char *username, User *users, Ride *rides, Driver *drivers);
 
 #endif
