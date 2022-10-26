@@ -14,7 +14,7 @@ int strtotime( char *datetime, struct tm *tm ){
     sscanf(datetime, "%d/%d/%d", &dd, &mm, &yy);
     //memset( &tm, 0, sizeof(struct tm) );
     tm->tm_mday=dd;
-    tm->tm_year=yy;
+    tm->tm_year=yy - 1900;
     tm->tm_mon=mm;
     
     //time_t t = mktime(&tm);  // t is now your desired time_t
