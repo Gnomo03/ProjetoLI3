@@ -18,6 +18,7 @@ run: clean all
 	
 $(BIN)/$(EXECUTABLE): $(SRC)/*.c
 	$(CXX) $(CXX_FLAGS) -I$(INCLUDE) $^ -o $@ $(LIBRARIES)
+	
 
 clean:
 	-rm $(BIN)/*

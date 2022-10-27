@@ -6,7 +6,7 @@
 #include <time.h>
 
 #define MAX_SZ_NAME 250
-#define MAX_SZ_ID 50
+#define MAX_SZ_ID 250
 
 typedef struct user{
     char username[MAX_SZ_ID];                   //username do usuário

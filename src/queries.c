@@ -113,7 +113,7 @@ struct userQ1 *q1(char *username, User *users, Ride *rides, Driver *drivers){
     }
     else{
         Driver *d = getDriver( drivers, username);
-        if( d != NULL){
+        if( d != NULL && strcasecmp(d->status,"active\n") == 0){
             result = malloc(sizeof(struct userQ1));
             
             strncpy( result->username, d->id, MAX_SZ_NAME);
@@ -142,4 +142,8 @@ struct userQ1 *q1(char *username, User *users, Ride *rides, Driver *drivers){
         }
     }
     return result;
+
+    // struct driverQ2 *q2(char *id, Ride *rides, Driver *drivers){
+       // struct driverQ2 *result = NULL;
+    
 }

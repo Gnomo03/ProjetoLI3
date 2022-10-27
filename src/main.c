@@ -21,7 +21,7 @@ int main( int argc, char *argv[] )  {
         switch ( queryId ) {
             case 1: 
                 result = q1(argv[2], u, r, d);
-                if( result != NULL ){
+                if( result != NULL ) {
                     printf("%s;%c;%d;%0.3f;%d;%0.2f\n", 
                             result->name,
                             result->gender,
@@ -32,12 +32,26 @@ int main( int argc, char *argv[] )  {
                     free(result);
                 }
                 break;
+            case 2: 
+            /*  result = q2(argv[2] ("N"),)
+                if( result != NULL) {
+                    printf("%s;%s;%0.3f\n",
+                    result -> id,
+                    result -> name,
+                    result -> avg_score);
+                
+                    free(result); 
+                    } */
+        
+
+            break;;
             
             default:
                 printf("%s: Not implemented\n", argv[1]);
                 break;
         }
     } 
+
 
 //int main(){
 
