@@ -124,14 +124,47 @@ int processCommandFile (FILE *file, User* u, Ride *r, Driver *d ){
     return lineNumber;
 }
 
+#ifdef TEST
+
+int test( int argc, char *argv[] ){
+    time_t starttime, endtime;
+    time(&starttime);
+
+    char cmdline[MAX_LINE_SZ];
+    //strcpy( cmdline, "bin/programa-principal");
+    for( int i=0; i<argc; i++){
+        if( i==0 ){
+            int laspos = strrchr(argv[i],'/')-argv[i];
+            if(laspos >=0 ){
+                strncpy( cmdline, argv[i], laspos+1 );
+                cmdline[laspos+1] = '\0';
+            }
+            strcat(cmdline, "programa-principal");
+        }
+        else{
+            strcat(cmdline, " ");
+            strcat(cmdline, argv[i]);
+        }
+    }
+    // debub
+    printf("cmdline=%s\n", cmdline);
+
+    system( cmdline );
+
+    time(&endtime);
+    printf ( "Start: %ld; End=%ld; Duration: %lds \n", starttime, endtime, endtime-starttime );
+}
+#endif
 
 int main( int argc, char *argv[] )  {
+    #ifdef TEST
+    test( argc, argv );
+    #else
     // Batch mode
     // argv[1] --> Input file folder
     // argv[2] --> command file
     //
     // Single mode --> Menu
-
     if( argc < 3 ){
         printf("No arguments specified.\nUSAGE: <Input files folder> <Command file>");
     }
@@ -147,54 +180,18 @@ int main( int argc, char *argv[] )  {
         sprintf( filename, "%s/rides.csv", inputFolder );
         Ride *r = read_ride( filename );
 
-        //User *u = read_user("Dataset_Fase1/users.csv");
-        //Driver *d = read_driver("Dataset_Fase1/drivers.csv");
-        //Ride *r = read_ride( "Dataset_Fase1/rides.csv" );
-
         // Read command file and parse + execute
         FILE *fp = fopen(commandFile, "r");
         if( fp != NULL ){
             processCommandFile( fp, u, r, d );
             fclose(fp);
+            printf ("Resultados da raiz na pasta 'results'\n");
         }
         else{
             printf("Cannot open command file: %s\n", commandFile);
         }
     }
+    #endif
 
-
-    /*
-    if( argc <=1 ){
-        printf("No arguments specified.\nUSAGE: <Query ID> [Args]");
-    }
-    else{
-        User *u = read_user("Dataset_Fase1/users.csv");
-        Driver *d = read_driver("Dataset_Fase1/drivers.csv");
-        Ride *r = read_ride( "Dataset_Fase1/rides.csv" );
-
-        struct userQ1 *result = NULL;
-        int queryId = atoi(argv[1]); 
-        switch ( queryId ) {
-            case 1: 
-                result = q1(argv[2], u, r, d);
-                if( result != NULL ){
-                    printf("%s;%c;%d;%0.3f;%d;%0.2f\n", 
-                            result->name,
-                            result->gender,
-                            result->age,
-                            result->avg_score,
-                            result->travel_count,
-                            result->total_cost );
-                    free(result);
-                }
-                break;
-            
-            default:
-                printf("%s: Not implemented\n", argv[1]);
-                break;
-        }
-    } 
-    */
     return 0;
 }
-

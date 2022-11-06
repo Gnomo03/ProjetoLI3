@@ -5,19 +5,25 @@ CXX_FLAGS := -ggdb
 BIN     := bin
 SRC     := src
 INCLUDE := include
+RESULTS := results
 
 LIBRARIES   := -lm
-EXECUTABLE  := main
-
+EXECUTABLE  := programa-principal
+TESTPROGRAM := programa-testes
 
 all: $(BIN)/$(EXECUTABLE)
 
-run: clean all
-	clear
-	./$(BIN)/$(EXECUTABLE)
-	
 $(BIN)/$(EXECUTABLE): $(SRC)/*.c
 	$(CXX) $(CXX_FLAGS) -I$(INCLUDE) $^ -o $@ $(LIBRARIES)
+	$(CXX) $(CXX_FLAGS) -I$(INCLUDE) $^ -o $(BIN)/$(TESTPROGRAM) $(LIBRARIES) -DTEST
 
-clean:
+run: clean all
+	clear
+	./$(BIN)/$(EXECUTABLE)	
+
+clean: 
 	-rm $(BIN)/*
+	-rm $(RESULTS)/*
+
+test:
+	$(BIN)/$(TESTPROGRAM) inputs inputs/test-q1.txt
