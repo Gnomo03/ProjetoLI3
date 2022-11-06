@@ -26,4 +26,4 @@ clean:
 	-rm $(RESULTS)/*
 
 test:
-	$(BIN)/$(TESTPROGRAM) inputs inputs/test-q1.txt
+	$(BIN)/$(TESTPROGRAM) inputs inputs/input.txt

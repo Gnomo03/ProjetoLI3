@@ -5,6 +5,7 @@
 #include "stacks.h"
 #include "parser.h"
 #include "queries.h"
+#include "advstrings.h"
 
 #define MAX_FILE_NAME_SZ    1024
 #define MAX_LINE_SZ         1024
@@ -130,20 +131,22 @@ int test( int argc, char *argv[] ){
     time_t starttime, endtime;
     time(&starttime);
 
-    char cmdline[MAX_LINE_SZ];
+    //char cmdline[MAX_LINE_SZ];
+    char *cmdline = NULL;
+
     //strcpy( cmdline, "bin/programa-principal");
     for( int i=0; i<argc; i++){
         if( i==0 ){
             int laspos = strrchr(argv[i],'/')-argv[i];
             if(laspos >=0 ){
-                strncpy( cmdline, argv[i], laspos+1 );
-                cmdline[laspos+1] = '\0';
+                cmdline = stringncat( NULL, argv[i], laspos+1 );
+                //cmdline[laspos+1] = '\0';
             }
-            strcat(cmdline, "programa-principal");
+            cmdline = stringcat(cmdline, "programa-principal");
         }
         else{
-            strcat(cmdline, " ");
-            strcat(cmdline, argv[i]);
+            cmdline = stringcat(cmdline, " ");
+            cmdline = stringcat(cmdline, argv[i]);
         }
     }
     // debub
@@ -153,6 +156,10 @@ int test( int argc, char *argv[] ){
 
     time(&endtime);
     printf ( "Start: %ld; End=%ld; Duration: %lds \n", starttime, endtime, endtime-starttime );
+
+    if(cmdline){
+        free(cmdline);
+    }
 }
 #endif
 
