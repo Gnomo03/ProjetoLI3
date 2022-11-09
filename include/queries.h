@@ -17,15 +17,7 @@ struct userQ1{
     float total_cost;
 };
 
-struct driverQ2{
-    char id [MAX_SZ_ID];
-    char name [MAX_SZ_NAME];
-    float avg_score; 
-};
-
-
 // All queries
 struct userQ1 *q1(char *username, User *users, Ride *rides, Driver *drivers);
-struct driverQ2 *q2(char *id, Ride *rides, Driver *drivers);
 
 #endif
