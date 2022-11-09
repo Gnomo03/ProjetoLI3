@@ -143,3 +143,71 @@ struct userQ1 *q1(char *username, User *users, Ride *rides, Driver *drivers){
     }
     return result;
 }
+
+
+struct userQ2 *q2(int N , User *users, Ride *rides, Driver *drivers) {
+  struct userQ2 *result = NULL;
+        if (N <= 0)
+        {
+            return;
+        }
+        else {
+            // sortN(int N, Ride *rides, Driver *drivers);
+            // returnUntilN (Ride *rides); -- Vai dar display do ID, Nome e avaliação Média desses N primeiros elementos
+        }
+}
+
+void sortN(int N,Ride *rides, Driver *drivers) { // Devolve os N Drivers com maior Avg_Score
+
+   // fullSort(r,d);
+}
+
+fullSort(Ride *rides,Driver *drivers) {  // Organiza todos os Drivers (independentemente de estarem empatados ou não)
+        sortAvg_Score(rides);{} // Tenho que adicionar uma feature que dá break caso não existam empates
+        checkRepeated_Elem(rides){
+        //Verificar se os elementos se repetem -- Função Principal
+        // Se se repetirem : Filtrar esses e mandar para as outras funções (sortRecent_Travel e, se necessário, idCompare)
+        // Se não se repetirem : break;
+        }
+        sortRecent_Travel(rides); // Tenho que adicionar uma feature que dá break caso não existam empates
+        id_Compare(rides); 
+    }
+        
+void sortAvg_Score(Ride *rides) 
+{ 
+    int swapped, i; 
+    Ride *ptr1; 
+    Ride *lptr = NULL; 
+  
+    // Checking for empty list 
+    if (rides == NULL) 
+        return; 
+  
+    do
+    { 
+        swapped = 0; 
+        ptr1 = rides; 
+  
+        while (ptr1->next != lptr) 
+        { 
+            if (ptr1->sDriver > ptr1->next->sDriver) 
+            { 
+                swap(ptr1, ptr1->next); 
+                swapped = 1; 
+            } 
+            ptr1 = ptr1->next; 
+        } 
+        lptr = ptr1; 
+    } 
+    while (swapped); 
+} 
+
+sortRecent_Travel(Ride *rides) {
+
+}
+
+id_Compare(Ride *rides) {
+
+
+
+}
