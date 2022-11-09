@@ -6,20 +6,18 @@
 #include "parser.h"
 #include "queries.h"
 
-struct tm localt (){
-    time_t t = time(NULL);
-    struct tm tm = *localtime(&t);
-    return tm;
-}
+#define hoje_mday 9
+#define hoje_mon 10
+#define hoje_year 2022
 
 int getAge (struct tm hoje, struct tm birth){
-    int res = hoje.tm_year - birth.tm_year;
-    if (hoje.tm_mon == birth.tm_mon){
-        if (hoje.tm_mday < birth.tm_mday){
+    int res = hoje_year - birth.tm_year;
+    if (hoje_mon == birth.tm_mon){
+        if (hoje_mday < birth.tm_mday){
             res = res - 1;
         }
     }
-    else if (hoje.tm_mon < birth.tm_mon){
+    else if (hoje_mon < birth.tm_mon){
         res = res - 1;
     }
     return res;
@@ -162,16 +160,16 @@ void sortN(int N,Ride *rides, Driver *drivers) { // Devolve os N Drivers com mai
    // fullSort(r,d);
 }
 
-fullSort(Ride *rides,Driver *drivers) {  // Organiza todos os Drivers (independentemente de estarem empatados ou não)
-        sortAvg_Score(rides);{} // Tenho que adicionar uma feature que dá break caso não existam empates
-        checkRepeated_Elem(rides){
+fullSort(Ride *rides,Driver *drivers) { // Organiza todos os Drivers (independentemente de estarem empatados ou não)
+        filterActiveDrivers(rides); // Filtra Imediatamente os Drivers que estão ativos;
+        sortAvg_Score(rides);   // Organiza por Avg_Score os Drivers Ativos : Tenho que adicionar uma feature que dá break caso não existam empates
+        checkRepeated_Elem(rides);
         //Verificar se os elementos se repetem -- Função Principal
         // Se se repetirem : Filtrar esses e mandar para as outras funções (sortRecent_Travel e, se necessário, idCompare)
         // Se não se repetirem : break;
-        }
-        sortRecent_Travel(rides); // Tenho que adicionar uma feature que dá break caso não existam empates
+        sortRecent_Travel(rides);   // Tenho que adicionar uma feature que dá break caso não existam empates
         id_Compare(rides); 
-    }
+}
         
 void sortAvg_Score(Ride *rides) 
 { 
