@@ -132,7 +132,7 @@ struct userQ1 *q1(char *username, User *users, Ride *rides, Driver *drivers){
                     rideScore +=r->sDriver;
                     rideCost += getRideCost( r, drivers);
                 }
-                r = r->next;
+                r = r->next; 
             }
             result->avg_score = rideScore / rideCount;
             result->travel_count = rideCount;
@@ -204,8 +204,4 @@ sortRecent_Travel(Ride *rides) {
 
 }
 
-id_Compare(Ride *rides) {
-
-
-
-}
+id_Compare(Ride *rides);
