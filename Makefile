@@ -5,7 +5,7 @@ CXX_FLAGS := -ggdb
 BIN     := bin
 SRC     := src
 INCLUDE := include
-RESULTS := results
+RESULTS := Resultados
 
 LIBRARIES   := -lm
 EXECUTABLE  := programa-principal
