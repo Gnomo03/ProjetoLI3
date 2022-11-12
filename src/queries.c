@@ -6,20 +6,19 @@
 #include "parser.h"
 #include "queries.h"
 
-struct tm localt (){
-    time_t t = time(NULL);
-    struct tm tm = *localtime(&t);
-    return tm;
-}
+#define hoje_mday 9  
+#define hoje_mon 10
+#define hoje_year 2022
 
-int getAge (struct tm hoje, struct tm birth){
-    int res = hoje.tm_year - birth.tm_year;
-    if (hoje.tm_mon == birth.tm_mon){
-        if (hoje.tm_mday < birth.tm_mday){
+
+int getAge (struct tm birth){
+    int res = hoje_year - birth.tm_year;
+    if (hoje_mon == birth.tm_mon){
+        if (hoje_mday < birth.tm_mday){
             res = res - 1;
         }
     }
-    else if (hoje.tm_mon < birth.tm_mon){
+    else if (hoje_mon < birth.tm_mon){
         res = res - 1;
     }
     return res;
@@ -51,13 +50,13 @@ Driver *getDriver(Driver *drivers, char *id){
     return result;
 }
 
-float getRideCost( Ride *ride, Driver *drivers){
+double getRideCost( Ride *ride, Driver *drivers){
     Driver *d = drivers;
-    float result = 0;
+    double result = 0;
 
     while ( d!=NULL ){
         if( strcmp( d->id, ride->driver ) == 0  ){
-            float tripCost = 0;
+            double tripCost = 0;
             if( strcasecmp(d->classe, "Basic") == 0 ){
                 tripCost = 3.25 + 0.62*ride->distance;
             }
@@ -90,13 +89,12 @@ struct userQ1 *q1(char *username, User *users, Ride *rides, Driver *drivers){
             strncpy( result->name, u->name, MAX_SZ_NAME);
             result->gender = u->gender;
             // age
-            struct tm today = localt(); 
-            result->age = getAge(today, u->birth);
+            result->age = getAge(u->birth);
 
             Ride *r = rides;
             int rideCount = 0;
-            float rideCost = 0;
-            float rideScore = 0;        
+            double rideCost = 0;
+            double rideScore = 0;        
             
             while( r != NULL ){
                 if( strcmp(r->user, username) == 0  ){
@@ -120,13 +118,12 @@ struct userQ1 *q1(char *username, User *users, Ride *rides, Driver *drivers){
             strncpy( result->name, d->name, MAX_SZ_NAME);
             result->gender = d->gender;
             // age
-            struct tm today = localt(); 
-            result->age = getAge(today, d->birth);
+            result->age = getAge(d->birth);
 
             Ride *r = rides;
             int rideCount = 0;
-            float rideCost = 0;
-            float rideScore = 0;        
+            double rideCost = 0;
+            double rideScore = 0;        
             
             while( r != NULL ){
                 if( strcmp(r->driver, username) == 0  ){
