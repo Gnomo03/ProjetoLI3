@@ -107,7 +107,7 @@ int processCommandFile (FILE *file, User* u, Ride *r, Driver *d ){
                 tok = strtok( NULL, " " );
             }
             char resultFileName[ MAX_FILE_NAME_SZ ];
-            sprintf(resultFileName,"results/command%d_output.txt", lineNumber);
+            sprintf(resultFileName,"Resultados/command%d_output.txt", lineNumber);
             // i=number os elements read
             int parseResult = parseCommand(i, args, u, r, d, resultFileName);
             // Frees args
@@ -192,7 +192,7 @@ int main( int argc, char *argv[] )  {
         if( fp != NULL ){
             processCommandFile( fp, u, r, d );
             fclose(fp);
-            printf ("Resultados da raiz na pasta 'results'\n");
+            printf ("Resultados da raiz na pasta 'Resultados'\n");
         }
         else{
             printf("Cannot open command file: %s\n", commandFile);
